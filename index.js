@@ -42,8 +42,9 @@ const losowanko = async () => {
 		await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
 		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
 		var dmchannel = await labomem.createDM();
-		await dmchannel.send(attachment).catch(err => {if (err) console.err(err)});
-};
+		dmchannel.send(attachment).catch(err => {if (err) console.err(err)});
+		
+	};
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
