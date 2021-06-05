@@ -57,21 +57,21 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
 	console.log(msg.author.username+'\t'+msg.content);
-	if (msg.content.startsWith('<@!'+client.user.id+'>')) {
-		losowanko();
+	if (msg.content.startsWith('<@'+client.user.id+'>') || msg.content.startsWith('<@!'+client.user.id+'>')) {
+		//losowanko();
 		// var labomems = await msg.guild.members.fetch();
 		// var labomem = labomems.random();
 
-		// const canvas = Canvas.createCanvas(800, 400);
-		// const context = canvas.getContext('2d');
-		// const background = await Canvas.loadImage('fumolove.png');
-		// context.drawImage(background, 0, 0, canvas.width, canvas.height);
-		// context.font = applyText(canvas, labomem.displayName);
+		 const canvas = Canvas.createCanvas(800, 400);
+		 const context = canvas.getContext('2d');
+		 const background = await Canvas.loadImage('fumolove.png');
+		 context.drawImage(background, 0, 0, canvas.width, canvas.height);
+		 context.font = applyText(canvas, msg.member.displayName);
 		
-		// context.fillStyle = labomem.displayHexColor;
-		// await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
-		// const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
-		// msg.channel.send(attachment);
+		 context.fillStyle = msg.member.displayHexColor;
+		 await fillTextWithTwemoji(context, msg.member.displayName, 250, 280);
+		 const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
+		 msg.channel.send(attachment);
 	}
 });
 
