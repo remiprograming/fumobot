@@ -1,0 +1,14 @@
+{
+  "name": "fumobot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.8.0",
+    "discord.js": "^12.5.3",
+    "gm": "^1.23.1",
+    "node-canvas": "^2.7.0",
+    "node-canvas-with-twemoji": "^0.1.6",
+    "node-schedule": "^2.0.0"
+  }
+}
