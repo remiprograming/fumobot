@@ -48,7 +48,11 @@ const losowanko = async () => {
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	losjob = schedule.scheduleJob('0 4 * * *', () => {losowanko();});
+	losjob = schedule.scheduleJob('0 4 * * *', () => {
+		for (let i=0;i<3;i++){
+			losowanko();
+		}
+	});
 });
 
 client.on('message', async msg => {
