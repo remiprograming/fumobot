@@ -42,8 +42,7 @@ const losowanko = async () => {
 		await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
 		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
 		var dmchannel = await labomem.createDM();
-		dmchannel.send(attachment).catch(err => {if (err) console.err(err)});
-
+		await dmchannel.send(attachment).catch(err => {if (err) console.err(err)});
 };
 
 client.on('ready', () => {
@@ -54,19 +53,20 @@ client.on('ready', () => {
 client.on('message', async msg => {
 	console.log(msg.member.displayName+'\t'+msg.content);
 	if (msg.content.startsWith('<@!'+client.user.id+'>')) {
-		var labomems = await msg.guild.members.fetch();
-		var labomem = labomems.random();
+		losowanko();
+		// var labomems = await msg.guild.members.fetch();
+		// var labomem = labomems.random();
 
-		const canvas = Canvas.createCanvas(800, 400);
-		const context = canvas.getContext('2d');
-		const background = await Canvas.loadImage('fumolove.png');
-		context.drawImage(background, 0, 0, canvas.width, canvas.height);
-		context.font = applyText(canvas, labomem.displayName);
+		// const canvas = Canvas.createCanvas(800, 400);
+		// const context = canvas.getContext('2d');
+		// const background = await Canvas.loadImage('fumolove.png');
+		// context.drawImage(background, 0, 0, canvas.width, canvas.height);
+		// context.font = applyText(canvas, labomem.displayName);
 		
-		context.fillStyle = labomem.displayHexColor;
-		await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
-		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
-		msg.channel.send(attachment);
+		// context.fillStyle = labomem.displayHexColor;
+		// await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
+		// const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
+		// msg.channel.send(attachment);
 	}
 });
 
