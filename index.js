@@ -10,11 +10,11 @@ const applyText = (canvas, text) => {
 	const context = canvas.getContext('2d');
 
 	// Declare a base size of the font
-	let fontSize = 70;
+	let fontSize = 30;
 
 	do {
 		// Assign the font to the context and decrement it so it can be measured again
-		context.font = `${fontSize -= 10}px Menlo`;
+		context.font = `${fontSize -= 5}px Menlo`;
 		// Compare pixel width of the text to the canvas minus the approximate avatar size
 	} while (context.measureText(text).width > canvas.width - 250);
 
@@ -29,15 +29,27 @@ const die = () => {
 
 const losowanko = async () => {
 		var genso = await client.guilds.fetch('647798243207544842'/*obrazanie remilii sv*/);
+		var labomems = await genso.members.fetch();
+		var labomem = labomems.random();
+		console.log('love to : '+labomem.displayName);
+		const canvas = Canvas.createCanvas(800, 400);
+		const context = canvas.getContext('2d');
+		const background = await Canvas.loadImage('fumolove.png');
+		context.drawImage(background, 0, 0, canvas.width, canvas.height);
+		context.font = applyText(canvas, labomem.displayName);
+		
+		context.fillStyle = labomem.displayHexColor;
+		await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
+		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
+		var dmchannel = await labomem.createDM();
+		dmchannel.send(attachment);
 		genso.members.fetch().then(labomems => {console.log(labomems.random())});
 
-
-		
 };
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
-	losjob = schedule.scheduleJob('44 9 * * *', () => {losowanko();});
+	losjob = schedule.scheduleJob('0 4 * * *', () => {losowanko();});
 });
 
 client.on('message', async msg => {
@@ -55,7 +67,7 @@ client.on('message', async msg => {
 		context.fillStyle = labomem.displayHexColor;
 		await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
 		const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
-		msg.channel.send('jajcoez', attachment);
+		msg.channel.send(attachment);
 	}
 });
 
