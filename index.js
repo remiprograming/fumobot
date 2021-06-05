@@ -48,8 +48,8 @@ const losowanko = async () => {
 				console.log(err);
 			  }
 			  else {
-				const fumo1 = await Canvas.loadImage(res.random().url);
-				const fumo2 = await Canvas.loadImage(res.random().url);
+				const fumo1 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
+				const fumo2 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
 				context.drawImage(fumo1, 0, 0, 200, canvas.height);
 				context.drawImage(fumo2, 500, 0, canvas.width, canvas.height);
 
