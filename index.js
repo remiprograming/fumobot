@@ -52,7 +52,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async msg => {
-	//console.log(msg.member.displayName+'\t'+msg.content);
+	console.log(msg.author.username+'\t'+msg.content);
 	if (msg.content.startsWith('<@!'+client.user.id+'>')) {
 		losowanko();
 		// var labomems = await msg.guild.members.fetch();
