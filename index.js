@@ -28,7 +28,7 @@ const die = () => {
 };
 
 const losowanko = async () => {
-		var genso = await client.guilds.fetch('672101553800216577'/*'647798243207544842'/*obrazanie remilii sv*/);
+		var genso = await client.guilds.fetch('647798243207544842'/*obrazanie remilii sv*/);
 		genso.members.fetch().then(labomems => {console.log(labomems.random())});
 
 
