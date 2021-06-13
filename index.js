@@ -50,11 +50,10 @@ const losowanko = async () => {
 			  else {
 				const fumo1 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
 				const fumo2 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
-				context.drawImage(fumo1, 0, 0, 200, canvas.height);
-				context.drawImage(fumo2, 500, 0, canvas.width, canvas.height);
+				context.drawImage(fumo1, 0, 0, 400, 400);
+				context.drawImage(fumo2, 400, 0, 400, 400);
 
-
-				await fillTextWithTwemoji(context, labomem.displayName, 250, 280);
+				await fillTextWithTwemoji(context, msg.member.displayName+"<3",0,350);
 				const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
 				var dmchannel = await labomem.createDM();
 				dmchannel.send(attachment).catch(err => {if (err) console.err(err)});
@@ -77,8 +76,8 @@ client.on('message', async msg => {
 
 		const canvas = Canvas.createCanvas(800, 400);
 		const context = canvas.getContext('2d');
-		const background = await Canvas.loadImage('fumolove.png');
-		context.drawImage(background, 0, 0, canvas.width, canvas.height);
+		//const background = await Canvas.loadImage('fumolove.png');
+		//context.drawImage(background, 0, 0, canvas.width, canvas.height);
 		context.font = applyText(canvas, msg.member.displayName);
 		context.fillStyle = msg.member.displayHexColor;
 		gis('fumo', async (err,res) => {
@@ -87,10 +86,10 @@ client.on('message', async msg => {
 			} else {
 				const fumo1 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
 				const fumo2 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
-				context.drawImage(fumo1, 0, 0, 290, canvas.height);
-				context.drawImage(fumo2, 440, 0, 360, canvas.height);
+				context.drawImage(fumo1, 0, 0, 400, 400);
+				context.drawImage(fumo2, 400, 0, 400, 400);
 
-				await fillTextWithTwemoji(context, msg.member.displayName, 250, 280);
+				await fillTextWithTwemoji(context, msg.member.displayName+"<3",0,350);
 				const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
 				msg.channel.send(attachment);
 			  }

@@ -10,6 +10,7 @@
     "gm": "^1.23.1",
     "node-canvas": "^2.7.0",
     "node-canvas-with-twemoji": "^0.1.6",
-    "node-schedule": "^2.0.0"
+    "node-schedule": "^2.0.0",
+    "nodemon": "^2.0.7"
   }
 }
