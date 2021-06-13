@@ -43,7 +43,7 @@ const losowanko = async () => {
 		context.font = applyText(canvas, labomem.displayName);
 		context.fillStyle = labomem.displayHexColor;
 
-		gis('fumo', async (err,res) => {
+		gis('fumo touhou', async (err,res) => {
 			if (err) {
 				console.log(err);
 			  }
@@ -80,7 +80,7 @@ client.on('message', async msg => {
 		//context.drawImage(background, 0, 0, canvas.width, canvas.height);
 		context.font = applyText(canvas, msg.member.displayName);
 		context.fillStyle = msg.member.displayHexColor;
-		gis('fumo', async (err,res) => {
+		gis('fumo touhou', async (err,res) => {
 			if (err) {
 				console.log(err);
 			} else {
