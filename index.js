@@ -3,30 +3,22 @@ const Canvas = require('canvas');
 const { fillTextWithTwemoji } = require('node-canvas-with-twemoji');
 const schedule = require('node-schedule');
 const gis = require('g-i-s');
+const Danbooru = require('danbooru');
 
 const client = new Discord.Client();
+let booru = new Danbooru('https://safebooru.donmai.us/');
 var losjob;
 const die = () => {
 	client.destroy();
 	losjob.cancel();
 };
 
-var lastres;
-function imgSrchResults(err, res) {
-	if (err) {
-	  console.log(err);
-	}
-	else {
-	  lastres=res;
-	}
-  }
-
 const applyText = (canvas, text) => {
 	const context = canvas.getContext('2d');
 	let fontSize = 30;
 	do {
 		context.font = `${fontSize -= 5}px Menlo`;
-	} while (context.measureText(text).width > canvas.width - 250);
+	} while (context.measureText(text).width > canvas.width);
 	return context.font;
 };
 
@@ -62,9 +54,21 @@ const losowanko = async () => {
 	}
 };
 
+// const sAndSendBack = async gril => {
+// 	console.log("he said:"+gril);
+// 	gis(gril, async (err,res) => {
+// 		if (err) {
+// 			console.log(err);
+// 		} else {
+// 			msg.channel.send(res[Math.floor(Math.random() * (res.length>5 ? 5 : res.length))].url);
+// 		  }
+// 	});
+// }
+
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}.`);
 	losjob = schedule.scheduleJob('0 4 * * *', () => {losowanko();});
+	
 });
 
 client.on('message', async msg => {
@@ -91,9 +95,27 @@ client.on('message', async msg => {
 
 				await fillTextWithTwemoji(context, msg.member.displayName+"<3",0,350);
 				const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
-				msg.channel.send(attachment);
+				msg.channel.send(res[Math.floor(Math.random() * res.length)].url);
 			  }
 		});
+	}else if (/*msg.author.id=="786279913073541181" &&*/ msg.content.startsWith("Dzisiejszą Touhou dziewczynką jest:")){
+		// sAndSendBack(msg.content.substring(37));
+		let gril = msg.content.substring(36).toLowerCase().replace(" ","_");
+		if (gril.startsWith("**") && gril.endsWith("**")/*msg.author.id=="786279913073541181"*/){
+			gril=gril.substring(2,gril.length-2);
+		}
+		console.log("searching:"+gril);
+		let posts = await booru.posts({
+			limit: 1,
+			page: 1,
+			tags: gril+" 1girl",
+			random: true
+		});
+		if (typeof posts[0] === "undefined"){
+			msg.react("648261196339871765");
+		} else {
+			msg.channel.send(posts[0].file_url);
+		}
 	}
 });
 
