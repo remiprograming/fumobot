@@ -99,23 +99,43 @@ client.on('message', async msg => {
 			  }
 		});
 	}else if (/*msg.author.id=="786279913073541181" &&*/ msg.content.startsWith("Dzisiejszą Touhou dziewczynką jest:")){
-		// sAndSendBack(msg.content.substring(37));
-		let gril = msg.content.substring(36).toLowerCase().replace(" ","_");
+		let gril = msg.content.substring(36);
 		if (gril.startsWith("**") && gril.endsWith("**")/*msg.author.id=="786279913073541181"*/){
-			gril=gril.substring(2,gril.length-2);
-		}
-		console.log("searching:"+gril);
-		let posts = await booru.posts({
-			limit: 1,
-			page: 1,
-			tags: gril+" 1girl",
-			random: true
-		});
-		if (typeof posts[0] === "undefined"){
-			msg.react("648261196339871765");
-		} else {
+			gril=gril.toLowerCase().substring(2,gril.length-2);
+			let gsplit = gril.split(' ');
+			gril=gril.replace(" ","_")+" 1girl"
+			console.log("searching:"+gril);
+			let posts = await booru.posts({
+				limit: 1,
+				page: 1,
+				tags: gril,
+				random: true
+			});
+			if (typeof posts[0] === "undefined"){
+				if (gsplit.length==2){
+					gril=gsplit[1]+"_"+gsplit[0]+" 1girl";
+					console.log("searching:"+gril);
+					let posts = await booru.posts({
+						limit: 1,
+						page: 1,
+						tags: gril,
+						random: true
+					});
+					if (typeof posts[0] === "undefined"){
+						msg.react("648261196339871765");
+					} else {
+						msg.channel.send(posts[0].file_url);
+					}
+				} else {
+					msg.react("648261196339871765");
+				}
+			} else {
+				msg.channel.send(posts[0].file_url);
+			}
+		} else{
 			msg.channel.send(posts[0].file_url);
 		}
+		
 	}
 });
 
