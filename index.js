@@ -78,23 +78,23 @@ client.on('message', async msg => {
 		// var labomems = await msg.guild.members.fetch();
 		// var labomem = labomems.random();
 
-		const canvas = Canvas.createCanvas(800, 400);
-		const context = canvas.getContext('2d');
+		//const canvas = Canvas.createCanvas(800, 400);
+		//const context = canvas.getContext('2d');
 		//const background = await Canvas.loadImage('fumolove.png');
 		//context.drawImage(background, 0, 0, canvas.width, canvas.height);
-		context.font = applyText(canvas, msg.member.displayName);
-		context.fillStyle = msg.member.displayHexColor;
+		//context.font = applyText(canvas, msg.member.displayName);
+		//context.fillStyle = msg.member.displayHexColor;
 		gis('fumo touhou', async (err,res) => {
 			if (err) {
 				console.log(err);
 			} else {
-				const fumo1 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
-				const fumo2 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
-				context.drawImage(fumo1, 0, 0, 400, 400);
-				context.drawImage(fumo2, 400, 0, 400, 400);
+				//const fumo1 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
+				//const fumo2 = await Canvas.loadImage(res[Math.floor(Math.random() * res.length)].url);
+				//context.drawImage(fumo1, 0, 0, 400, 400);
+				//context.drawImage(fumo2, 400, 0, 400, 400);
 
-				await fillTextWithTwemoji(context, msg.member.displayName+"<3",0,350);
-				const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
+				//await fillTextWithTwemoji(context, msg.member.displayName+"<3",0,350);
+				//const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'fumo-love.png');
 				msg.channel.send(res[Math.floor(Math.random() * res.length)].url);
 			  }
 		});
@@ -133,9 +133,23 @@ client.on('message', async msg => {
 				msg.channel.send(posts[0].file_url);
 			}
 		} else{
-			msg.channel.send(posts[0].file_url);
+			console.log("searching:"+gril);
+			let posts = await booru.posts(
+			{
+				limit: 1,
+				page: 1,
+				tags: gril,
+				random: true
+			});
+			if (typeof posts[0] === "undefined"){
+				msg.react("648261196339871765");
+			} else {
+				msg.channel.send(posts[0].file_url);
+			}
 		}
 		
+	}else if(/^(co)($|\W)/i.test(msg.content)===true){
+		msg.react("🥚");
 	}
 });
 
