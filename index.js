@@ -5,6 +5,8 @@ const schedule = require('node-schedule');
 const gis = require('g-i-s');
 const Danbooru = require('danbooru');
 
+const regex1 = new RegExp('^(co)($|[^\p{Letter}\d])','ui');
+
 const client = new Discord.Client();
 let booru = new Danbooru('https://safebooru.donmai.us/');
 var losjob;
@@ -148,7 +150,8 @@ client.on('message', async msg => {
 			}
 		}
 		
-	}else if(/^(co)($|\W)/i.test(msg.content)===true){
+	//}else if(/^(co)($|\W)/ui.test(msg.content)===true){
+	}else if(regex1.test(msg.content)===true){
 		msg.react("🥚");
 	}
 });
